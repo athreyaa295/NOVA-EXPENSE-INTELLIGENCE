@@ -1,0 +1,94 @@
+<div class="page-header">
+    <h1 class="page-title">Financial <span class="accent">Analytics</span></h1>
+    <p class="page-sub">Intelligent insights across your spending patterns</p>
+</div>
+
+<!-- Summary Stat Cards -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-label">Total Spent</div>
+        <div class="stat-value">\${{ totalSpent | number:'1.2-2' }}</div>
+        <div class="stat-trend up">↑ This Month</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Budget Remaining</div>
+        <div class="stat-value" [style.color]="(budget - totalSpent) >= 0 ? '#10b981' : '#ef4444'">
+            \${{ (budget - totalSpent) | number:'1.2-2' }}
+        </div>
+        <div class="stat-trend">of \${{ budget | number:'1.0-0' }} budget</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Daily Average</div>
+        <div class="stat-value">\${{ avgPerDay | number:'1.2-2' }}</div>
+        <div class="stat-trend">Per active day</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Transactions</div>
+        <div class="stat-value">{{ expenses.length }}</div>
+        <div class="stat-trend">Recorded</div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="charts-grid">
+    <!-- Category Breakdown -->
+    <div class="chart-card">
+        <h3 class="chart-title">Category Breakdown</h3>
+        <div class="donut-wrap">
+            <svg class="donut-chart" viewBox="0 0 120 120">
+                @for (item of categoryTotals; track item.category; let i = $index) {
+                <circle r="40" cx="60" cy="60" fill="none" [attr.stroke]="item.color" stroke-width="18"
+                    [attr.stroke-dasharray]="(item.pct * 2.513) + ' ' + (251.3 - item.pct * 2.513)"
+                    [attr.stroke-dashoffset]="65 - (i > 0 ? categoryTotals.slice(0,i).reduce((s,c)=>s+c.pct,0)*2.513 : 0)"
+                    transform="rotate(-90 60 60)" />
+                }
+                <text x="60" y="57" text-anchor="middle" fill="#f1f5f9" font-size="10" font-weight="700">{{
+                    categoryTotals.length }}</text>
+                <text x="60" y="68" text-anchor="middle" fill="#64748b" font-size="6">categories</text>
+            </svg>
+            <div class="donut-legend">
+                @for (item of categoryTotals; track item.category) {
+                <div class="legend-row">
+                    <span class="legend-dot" [style.background]="item.color"></span>
+                    <span class="legend-label">{{ item.category }}</span>
+                    <span class="legend-pct">{{ item.pct }}%</span>
+                    <span class="legend-amt">\${{ item.total | number:'1.0-0' }}</span>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Daily Trend -->
+    <div class="chart-card">
+        <h3 class="chart-title">7-Day Spending Trend</h3>
+        <div class="bar-chart">
+            @for (day of dailyTotals; track day.label) {
+            <div class="bar-col">
+                <div class="bar-amount">\${{ day.total | number:'1.0-0' }}</div>
+                <div class="bar-track">
+                    <div class="bar-fill" [style.height.%]="maxDaily > 0 ? (day.total / maxDaily * 100) : 0"></div>
+                </div>
+                <div class="bar-label">{{ day.label }}</div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Category Progress Bars -->
+<div class="category-section">
+    <h3 class="chart-title">Spending by Category</h3>
+    @for (item of categoryTotals; track item.category) {
+    <div class="cat-row">
+        <div class="cat-name">
+            <span>{{ item.category }}</span>
+            <span class="cat-total">\${{ item.total | number:'1.2-2' }}</span>
+        </div>
+        <div class="cat-bar-track">
+            <div class="cat-bar-fill" [style.width.%]="item.pct" [style.background]="item.color"></div>
+        </div>
+        <span class="cat-pct">{{ item.pct }}%</span>
+    </div>
+    }
+</div>

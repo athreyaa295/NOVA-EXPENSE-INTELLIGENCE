@@ -1,0 +1,74 @@
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Expense <span class="accent">Ledger</span></h1>
+        <p class="page-sub">{{ filtered.length }} transactions · Total: <strong>\${{ totalFiltered | number:'1.2-2'
+                }}</strong></p>
+    </div>
+    <button class="btn-primary" (click)="openAdd()">+ New Expense</button>
+</div>
+
+<!-- Filters -->
+<div class="filters-bar">
+    <input class="search-input" [(ngModel)]="searchQuery" (ngModelChange)="applyFilters()"
+        placeholder="🔍 Search expenses..." />
+    <select class="filter-select" [(ngModel)]="selectedCategory" (ngModelChange)="applyFilters()">
+        @for (cat of categories; track cat) {
+        <option [value]="cat">{{ cat }}</option>
+        }
+    </select>
+    <select class="filter-select" [(ngModel)]="sortBy" (ngModelChange)="applyFilters()">
+        <option value="date">Sort: Date</option>
+        <option value="amount">Sort: Amount</option>
+        <option value="title">Sort: Name</option>
+    </select>
+</div>
+
+<!-- Expense Form Modal -->
+@if (showForm) {
+<div class="modal-backdrop" (click)="onFormClose()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+        <app-expense-form [editExpense]="editingExpense" (closed)="onFormClose()"></app-expense-form>
+    </div>
+</div>
+}
+
+<!-- List -->
+<div class="expense-list">
+    @for (exp of filtered; track exp.id) {
+    <div class="expense-row">
+        <div class="exp-icon" [style.background]="categoryColors[exp.category] + '22'"
+            [style.color]="categoryColors[exp.category]">
+            {{ categoryIcons[exp.category] }}
+        </div>
+        <div class="exp-info">
+            <div class="exp-title">{{ exp.title }}</div>
+            <div class="exp-meta">{{ exp.category }} · {{ exp.paymentMethod }} · {{ exp.date | date:'MMM d, y' }}</div>
+            @if (exp.notes) {
+            <div class="exp-notes">{{ exp.notes }}</div>
+            }
+        </div>
+        <div class="exp-amount" [style.color]="categoryColors[exp.category]">
+            -\${{ exp.amount | number:'1.2-2' }}
+        </div>
+        <div class="exp-actions">
+            <button class="action-btn edit" (click)="openEdit(exp)" title="Edit">✎</button>
+            <button class="action-btn delete" (click)="confirmDelete(exp.id)" title="Delete">✕</button>
+        </div>
+
+        @if (deleteConfirmId === exp.id) {
+        <div class="delete-confirm">
+            <span>Delete this expense?</span>
+            <button class="confirm-yes" (click)="doDelete(exp.id)">Yes, Delete</button>
+            <button class="confirm-no" (click)="cancelDelete()">Cancel</button>
+        </div>
+        }
+    </div>
+    }
+    @empty {
+    <div class="empty-state">
+        <div class="empty-icon">🔍</div>
+        <div class="empty-text">No expenses found</div>
+        <div class="empty-sub">Try changing filters or add a new expense</div>
+    </div>
+    }
+</div>

@@ -1,0 +1,268 @@
+.page-header {
+    margin-bottom: 2rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #f1f5f9;
+    margin: 0 0 0.25rem;
+}
+
+.accent {
+    background: linear-gradient(90deg, #f97316, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page-sub {
+    color: #64748b;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.glass-panel {
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+}
+
+// Budget setter
+.budget-setter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.setter-label {
+    font-size: 0.8rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.setter-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.currency-symbol {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #f59e0b;
+}
+
+.budget-input {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(249, 115, 22, 0.3);
+    border-radius: 0.625rem;
+    padding: 0.65rem 1rem;
+    color: #f1f5f9;
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-family: inherit;
+    width: 140px;
+    outline: none;
+
+    &:focus {
+        border-color: #f97316;
+    }
+}
+
+.btn-save {
+    padding: 0.65rem 1.5rem;
+    background: linear-gradient(135deg, #f97316, #f59e0b);
+    border: none;
+    border-radius: 0.625rem;
+    color: white;
+    font-weight: 700;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(249, 115, 22, 0.5);
+    }
+}
+
+.budget-stats {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.bstat {
+    text-align: center;
+}
+
+.bstat-val {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #f59e0b;
+}
+
+.bstat-label {
+    font-size: 0.72rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.bstat-divider {
+    font-size: 2rem;
+    color: #334155;
+}
+
+// Progress
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.progress-label {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.progress-pct {
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.progress-track {
+    height: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    overflow: visible;
+    position: relative;
+    margin-bottom: 0.75rem;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 6px;
+    position: relative;
+    transition: width 1s ease;
+    min-width: 4px;
+}
+
+.progress-glow {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: pulse 1.5s ease infinite;
+}
+
+.progress-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+
+.progress-tip {
+    color: #64748b;
+}
+
+// Category grid
+.panel-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin: 0 0 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.cat-budget-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 0.875rem;
+    padding: 1.1rem;
+    transition: all 0.25s;
+
+    &:hover {
+        border-color: rgba(249, 115, 22, 0.15);
+        transform: translateY(-2px);
+    }
+}
+
+.cat-budget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.cat-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #94a3b8;
+}
+
+.cat-status {
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.cat-amounts {
+    font-size: 0.75rem;
+    margin-bottom: 0.6rem;
+}
+
+.spent-amt {
+    font-weight: 700;
+    color: #f1f5f9;
+}
+
+.budget-amt {
+    color: #475569;
+}
+
+.cat-track {
+    height: 5px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.cat-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.8s ease;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: translateY(-50%) scale(1.5);
+    }
+}

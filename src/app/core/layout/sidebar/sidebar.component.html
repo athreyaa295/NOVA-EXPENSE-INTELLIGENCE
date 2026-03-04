@@ -1,0 +1,28 @@
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-icon">N</div>
+    <span class="brand-name">NOVA</span>
+  </div>
+
+  <nav class="nav-list">
+    @for (item of navItems; track item.path) {
+      <a
+        class="nav-item"
+        [routerLink]="item.path"
+        routerLinkActive="active"
+      >
+        <span class="nav-icon">{{ item.icon }}</span>
+        <span class="nav-label">{{ item.label }}</span>
+        <span class="nav-glow"></span>
+      </a>
+    }
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-avatar">A</div>
+    <div class="user-info">
+      <div class="user-name">Nova User</div>
+      <div class="user-role">Pro Plan</div>
+    </div>
+  </div>
+</aside>

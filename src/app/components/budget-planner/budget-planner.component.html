@@ -1,0 +1,79 @@
+<div class="page-header">
+    <h1 class="page-title">Budget <span class="accent">Planner</span></h1>
+    <p class="page-sub">Set and track your monthly spending goals</p>
+</div>
+
+<!-- Budget setter -->
+<div class="budget-setter glass-panel">
+    <div class="setter-left">
+        <div class="setter-label">Monthly Budget Limit</div>
+        <div class="setter-row">
+            <span class="currency-symbol">\$</span>
+            <input class="budget-input" type="number" [(ngModel)]="inputBudget" min="100" step="100" />
+            <button class="btn-save" (click)="saveBudget()">
+                @if (saved) { ✓ Saved! } @else { Update Budget }
+            </button>
+        </div>
+    </div>
+    <div class="setter-right">
+        <div class="budget-stats">
+            <div class="bstat">
+                <div class="bstat-val">\${{ totalSpent | number:'1.0-0' }}</div>
+                <div class="bstat-label">Spent</div>
+            </div>
+            <div class="bstat-divider">/</div>
+            <div class="bstat">
+                <div class="bstat-val">\${{ totalBudget | number:'1.0-0' }}</div>
+                <div class="bstat-label">Budget</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Overall Progress -->
+<div class="overall-progress glass-panel">
+    <div class="progress-header">
+        <span class="progress-label">Budget Used</span>
+        <span class="progress-pct" [style.color]="budgetColor">{{ budgetPct | number:'1.0-0' }}%</span>
+    </div>
+    <div class="progress-track">
+        <div class="progress-fill" [style.width.%]="budgetPct"
+            [style.background]="'linear-gradient(90deg,' + budgetColor + ',#f59e0b)'">
+            <div class="progress-glow" [style.background]="budgetColor"></div>
+        </div>
+    </div>
+    <div class="progress-footer">
+        <span [style.color]="remaining >= 0 ? '#10b981' : '#ef4444'">
+            {{ remaining >= 0 ? '\$' + (remaining | number:'1.2-2') + ' remaining' : 'Over budget by \$' + ((-remaining)
+            | number:'1.2-2') }}
+        </span>
+        <span class="progress-tip">
+            @if (budgetPct < 50) { 🟢 On track. Great job! } @else if (budgetPct < 80) { 🟡 Watch your spending } @else
+                { 🔴 Approaching limit! } </span>
+    </div>
+</div>
+
+<!-- Category Budgets -->
+<div class="cat-budgets-panel glass-panel">
+    <h3 class="panel-title">Per-Category Breakdown</h3>
+    <div class="cat-grid">
+        @for (item of categoryBudgets; track item.category) {
+        <div class="cat-budget-card">
+            <div class="cat-budget-header">
+                <span class="cat-name">{{ item.category }}</span>
+                <span class="cat-status" [style.color]="item.color">
+                    {{ item.pct | number:'1.0-0' }}%
+                </span>
+            </div>
+            <div class="cat-amounts">
+                <span class="spent-amt">\${{ item.spent | number:'1.0-0' }}</span>
+                <span class="budget-amt"> / \${{ item.budgetAmt | number:'1.0-0' }}</span>
+            </div>
+            <div class="cat-track">
+                <div class="cat-fill" [style.width.%]="item.pct" [style.background]="item.color"
+                    [style.box-shadow]="'0 0 8px ' + item.color + '66'"></div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
